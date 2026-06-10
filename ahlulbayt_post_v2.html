@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0c14;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:'Cairo',sans-serif;}
+
+.card{
+  width:100%;max-width:640px;
+  background:#0e1120;
+  border:1px solid rgba(100,130,255,0.15);
+  border-radius:20px;
+  overflow:hidden;
+  position:relative;
+}
+
+/* ── glow border top ── */
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent 0%,#4f7cff 25%,#c9a84c 50%,#4f7cff 75%,transparent 100%);
+}
+
+/* ── HEADER ── */
+.hdr{
+  background:linear-gradient(135deg,#0d1128 0%,#111830 60%,#0e1120 100%);
+  padding:38px 32px 28px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid rgba(100,130,255,0.1);
+}
+.hdr::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(79,124,255,0.09),transparent 65%);
+  pointer-events:none;
+}
+.bism{
+  font-family:'Amiri',serif;font-size:15px;
+  color:#c9a84c;letter-spacing:3px;
+  margin-bottom:18px;opacity:.9;
+}
+.emblem{
+  width:68px;height:68px;border-radius:16px;
+  background:linear-gradient(135deg,#1e2a4a,#2a3a6a);
+  border:1px solid rgba(79,124,255,0.3);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Amiri',serif;font-size:30px;font-weight:900;
+  color:#7ba3ff;
+  margin:0 auto 18px;
+  box-shadow:0 0 32px rgba(79,124,255,0.18);
+}
+.title{
+  font-family:'Amiri',serif;
+  font-size:clamp(20px,4vw,30px);
+  line-height:1.35;
+  margin-bottom:10px;
+  background:linear-gradient(135deg,#e2e8f8 20%,#c9a84c 80%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.subtitle{font-size:12.5px;color:#8892b0;line-height:1.85;max-width:440px;margin:0 auto;}
+
+/* ── STATS STRIP ── */
+.stats{
+  display:flex;
+  border-bottom:1px solid rgba(100,130,255,0.1);
+  background:rgba(0,0,0,0.25);
+}
+.stat{flex:1;text-align:center;padding:14px 8px;border-left:1px solid rgba(100,130,255,0.08);}
+.stat:last-child{border-left:none;}
+.stat-n{font-size:22px;font-weight:900;color:#4f7cff;display:block;line-height:1.1;}
+.stat-l{font-size:9.5px;color:#5a6480;margin-top:3px;}
+
+/* ── FEATURES ── */
+.features{padding:24px 24px 18px;border-bottom:1px solid rgba(100,130,255,0.08);}
+.sec-lbl{
+  font-size:9px;color:#4f7cff;letter-spacing:3px;
+  text-transform:uppercase;text-align:center;margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;justify-content:center;
+}
+.sec-lbl::before,.sec-lbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(79,124,255,0.25));}
+.sec-lbl::after{background:linear-gradient(270deg,transparent,rgba(79,124,255,0.25));}
+
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.feat{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(100,130,255,0.1);
+  border-radius:12px;padding:14px;
+  display:flex;align-items:flex-start;gap:10px;
+  transition:border-color .2s;
+}
+.feat-ico{
+  width:34px;height:34px;border-radius:9px;
+  background:rgba(79,124,255,0.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.feat-txt .ttl{font-size:11.5px;font-weight:700;color:#e2e8f8;margin-bottom:3px;}
+.feat-txt .sub{font-size:10px;color:#5a6480;line-height:1.55;}
+
+/* ── HIGHLIGHTS ── */
+.hl-row{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:1px;background:rgba(100,130,255,0.08);
+  border-top:1px solid rgba(100,130,255,0.08);
+  border-bottom:1px solid rgba(100,130,255,0.08);
+}
+.hl{background:#0e1120;padding:14px 10px;text-align:center;}
+.hl-ico{font-size:22px;margin-bottom:6px;display:block;}
+.hl-t{font-size:11px;font-weight:700;color:#c9a84c;line-height:1.4;}
+.hl-s{font-size:9.5px;color:#5a6480;margin-top:3px;}
+
+/* ── TOOLS ── */
+.tools-sec{padding:18px 24px;border-bottom:1px solid rgba(100,130,255,0.08);}
+.tools-wrap{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;}
+.tool-chip{
+  background:rgba(79,124,255,0.08);
+  border:1px solid rgba(79,124,255,0.2);
+  border-radius:20px;padding:5px 14px;
+  font-size:11px;color:#7ba3ff;font-weight:600;
+  transition:all .18s;cursor:default;
+}
+
+/* ── SHARIA ── */
+.sharia-sec{
+  padding:16px 24px;
+  border-bottom:1px solid rgba(100,130,255,0.08);
+  background:rgba(201,168,76,0.04);
+}
+.sharia-inner{
+  display:flex;align-items:flex-start;gap:12px;
+}
+.sharia-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
+.sharia-text{font-size:11.5px;color:#8892b0;line-height:1.85;}
+.sharia-text strong{color:#c9a84c;}
+
+/* ── FOR WHOM ── */
+.whom-sec{padding:18px 24px 20px;border-bottom:1px solid rgba(100,130,255,0.08);}
+.whom-grid{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
+.whom-tag{
+  background:rgba(52,211,153,0.06);
+  border:1px solid rgba(52,211,153,0.18);
+  border-radius:20px;padding:5px 14px;
+  font-size:11px;color:#34d399;
+}
+
+/* ── SIGNATURE ── */
+.sig{
+  padding:18px 24px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;
+}
+.sig-name{
+  font-family:'Amiri',serif;font-size:15px;
+  color:#c9a84c;font-weight:700;
+}
+.sig-sub{font-size:10px;color:#5a6480;margin-top:3px;}
+.sig-badges{display:flex;gap:6px;flex-wrap:wrap;}
+.sig-badge{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(100,130,255,0.15);
+  border-radius:10px;padding:3px 9px;
+  font-size:9.5px;color:#8892b0;
+}
+
+/* ── ORN ── */
+.orn{text-align:center;font-size:12px;color:#2a3a5a;padding:8px;letter-spacing:8px;}
+
+/* ── COPY BTN ── */
+.copy-btn{
+  display:block;margin:0 auto 22px;
+  background:linear-gradient(135deg,#2a3a6a,#4f7cff);
+  border:none;border-radius:10px;
+  padding:11px 36px;
+  font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;
+  color:#fff;cursor:pointer;transition:opacity .2s;
+}
+.copy-btn:hover{opacity:.86;}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="bism">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</div>
+    <div class="emblem">م</div>
+    <div class="title">مكتبةُ برومباتِ أهلِ البيتِ الكُبرى</div>
+    <div class="subtitle">
+      أول مكتبة عربية متكاملة لتوليد صور أهل البيت عليهم السلام<br>
+      بالذكاء الاصطناعي — وفق الضوابط الشرعية المعتمدة
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat"><span class="stat-n">٥٣٧</span><span class="stat-l">برومبت احترافي</span></div>
+    <div class="stat"><span class="stat-n">٢٤+</span><span class="stat-l">قسماً وموضوعاً</span></div>
+    <div class="stat"><span class="stat-n">١٤</span><span class="stat-l">معصوماً ع</span></div>
+    <div class="stat"><span class="stat-n">٣٠+</span><span class="stat-l">شخصية تاريخية</span></div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="sec-lbl">الميزات الرئيسية</div>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="feat-ico">📚</div>
+        <div class="feat-txt"><div class="ttl">مكتبة شاملة</div><div class="sub">من النبي ﷺ حتى الإمام المهدي ع مع كربلاء والأماكن المقدسة</div></div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">✨</div>
+        <div class="feat-txt"><div class="ttl">مولّد AI</div><div class="sub">توليد برومبات مخصصة بـ٤ أوضاع وجودة سينمائية 8K</div></div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">🗂</div>
+        <div class="feat-txt"><div class="ttl">تصفح ذكي</div><div class="sub">بطاقات الأقسام وقائمة جانبية منظّمة بمجموعات واضحة</div></div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">📋</div>
+        <div class="feat-txt"><div class="ttl">نسخ فوري</div><div class="sub">انسخ أي برومبت بضغطة واحدة وأضفه مباشرة لأداة توليدك</div></div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">🔒</div>
+        <div class="feat-txt"><div class="ttl">لوحة إدارة</div><div class="sub">إضافة وتعديل وحذف برومبات — تحليلات حية للاستخدام</div></div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">🎨</div>
+        <div class="feat-txt"><div class="ttl">٤ ثيمات</div><div class="sub">داكن · ذهبي تراثي · أخضر الإسلام · ليلة عاشوراء</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTS -->
+  <div class="hl-row">
+    <div class="hl">
+      <span class="hl-ico">⚖️</span>
+      <div class="hl-t">قواعد شرعية</div>
+      <div class="hl-s">وجوه مخفية بنور إلهي</div>
+    </div>
+    <div class="hl">
+      <span class="hl-ico">🎬</span>
+      <div class="hl-t">جودة سينمائية</div>
+      <div class="hl-s">8K Cinematic Masterpiece</div>
+    </div>
+    <div class="hl">
+      <span class="hl-ico">💾</span>
+      <div class="hl-t">يعمل أوف لاين</div>
+      <div class="hl-s">ملف HTML مستقل</div>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="tools-sec">
+    <div class="sec-lbl">الأدوات المدعومة</div>
+    <div class="tools-wrap">
+      <span class="tool-chip">Midjourney</span>
+      <span class="tool-chip">Flux</span>
+      <span class="tool-chip">Imagen</span>
+      <span class="tool-chip">Leonardo.ai</span>
+      <span class="tool-chip">DALL-E</span>
+      <span class="tool-chip">Stable Diffusion</span>
+    </div>
+  </div>
+
+  <!-- SHARIA -->
+  <div class="sharia-sec">
+    <div class="sharia-inner">
+      <div class="sharia-icon">🕌</div>
+      <div class="sharia-text">
+        وجوه المعصومين وأهل البيت ع <strong>مُغطاة دائماً</strong> بنور إلهي أبيض وذهبي ساطع — لا ملامح ظاهرة أبداً — وفق الضوابط الشرعية المعتمدة لدى علماء الشيعة الإمامية
+      </div>
+    </div>
+  </div>
+
+  <!-- FOR WHOM -->
+  <div class="whom-sec">
+    <div class="sec-lbl">لمَن هذه المنصة؟</div>
+    <div class="whom-grid">
+      <span class="whom-tag">منتجو المحتوى الديني</span>
+      <span class="whom-tag">مصممو الجرافيك</span>
+      <span class="whom-tag">قنوات المناسبات الشيعية</span>
+      <span class="whom-tag">مشاريع إعلام أهل البيت</span>
+    </div>
+  </div>
+
+  <div class="orn">❧ ✦ ❧</div>
+
+  <!-- SIGNATURE -->
+  <div class="sig">
+    <div>
+      <div class="sig-name">✦ إعداد عبدالله البوشفيع</div>
+      <div class="sig-sub">الأحساء — المملكة العربية السعودية</div>
+    </div>
+    <div class="sig-badges">
+      <span class="sig-badge">بصياغةِ وتوليفِ البشافيع</span>
+      <span class="sig-badge">٢٠٢٦</span>
+    </div>
+  </div>
+
+  <button class="copy-btn" onclick="copyPost()">📋 نسخ نص البوست</button>
+
+</div>
+
+<script>
+function copyPost() {
+  var txt = `بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ
+
+✨ مكتبةُ برومباتِ أهلِ البيتِ الكُبرى ✨
+
+أول مكتبة عربية متكاملة لتوليد الصور بالذكاء الاصطناعي
+لأهل البيت عليهم السلام وشخصيات كربلاء المقدسة
+وفق الضوابط الشرعية المعتمدة
+
+━━━━━━━━━━━━━━━━━━━━
+📊 الأرقام
+━━━━━━━━━━━━━━━━━━━━
+• ٥٣٧ برومبت احترافي جاهز
+• ٢٤+ قسماً وموضوعاً متنوعاً
+• ١٤ معصوماً — من النبي ﷺ حتى الإمام المهدي ع
+• ٣٠+ شخصية تاريخية وكربلائية
+
+━━━━━━━━━━━━━━━━━━━━
+✅ الميزات
+━━━━━━━━━━━━━━━━━━━━
+🔹 مكتبة شاملة بتصفح بطاقات وقائمة جانبية منظّمة
+🔹 مولّد AI احترافي بـ٤ أوضاع وجودة سينمائية 8K
+🔹 نسخ فوري بضغطة واحدة لأي برومبت
+🔹 لوحة إدارة كاملة — تحليلات حية
+🔹 ٤ ثيمات: داكن • ذهبي • أخضر • بنفسجي
+🔹 يعمل أوف لاين كملف HTML مستقل
+
+━━━━━━━━━━━━━━━━━━━━
+⚖️ الضوابط الشرعية
+━━━━━━━━━━━━━━━━━━━━
+وجوه المعصومين وأهل البيت مُغطاة دائماً
+بنور إلهي أبيض وذهبي — لا ملامح ظاهرة أبداً
+
+━━━━━━━━━━━━━━━━━━━━
+🛠 الأدوات المدعومة
+━━━━━━━━━━━━━━━━━━━━
+Midjourney • Flux • Imagen • Leonardo.ai
+DALL-E • Stable Diffusion
+
+━━━━━━━━━━━━━━━━━━━━
+🎯 لمَن هذه المنصة؟
+━━━━━━━━━━━━━━━━━━━━
+منتجو المحتوى الديني • مصممو الجرافيك
+قنوات المناسبات الشيعية • مشاريع إعلام أهل البيت ع
+
+━━━━━━━━━━━━━━━━━━━━
+✦ إعداد عبدالله البوشفيع
+الأحساء — المملكة العربية السعودية
+بصياغةِ وتوليفِ البشافيع`;
+
+  navigator.clipboard.writeText(txt).then(function() {
+    var b = document.querySelector('.copy-btn');
+    b.textContent = '✅ تم النسخ!';
+    setTimeout(function(){ b.textContent = '📋 نسخ نص البوست'; }, 2500);
+  }).catch(function() {
+    var ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.style.cssText = 'position:fixed;top:-9999px;opacity:0';
+    document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0,99999);
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    var b = document.querySelector('.copy-btn');
+    b.textContent = '✅ تم النسخ!';
+    setTimeout(function(){ b.textContent = '📋 نسخ نص البوست'; }, 2500);
+  });
+}
+</script>
+</body>
+</html>
